@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Slack Puppet</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content="" />
+
+	<!-- Halfmoon CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+</head>
+
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
+
+	<!-- Page wrapper start -->
+	<div id="page-wrapper" class="page-wrapper with-navbar">
+
+		<!-- Navbar start -->
+		<div class="navbar">
+			<span class="navbar-text font-weight-medium font-size-16">
+				Slack Puppet
+			</span>
+			<span class="navbar-text ml-auto" id="custom-theme-pointer">
+				<i class="fa fa-hand-o-right font-size-20" aria-hidden="true"></i>
+			</span>
+			<div class="navbar-content">
+				<span class="d-none-in-custom-theme-only">
+					<button class="btn btn-square" type="button" onclick="halfmoon.toggleDarkMode()">
+						<i class="fas fa-moon"></i>
+						<span class="sr-only">Toggle dark mode</span>
+					</button>
+				</span>
+			</div>
+		</div>
+		<!-- Navbar end -->
+
+		<!-- Content wrapper start -->
+		<div class="content-wrapper">
+			<div class="d-flex h-full align-items-center justify-content-center flex-column">
+				<div class="card w-400 mw-full m-0 position-relative">
+
+					<form action="..." method="..." class="p-10 w-400 mw-full"></form>
+						<div id="active-button" class=".p-10 custom-switch">
+							<input type="checkbox" id="active-switch" value="">
+							<label for="switch-1">Slack Puppet Active</label>
+						</div>
+					</form>
+
+					<img src="slack_screen.png" class="p-10 img-fluid rounded-top" alt="rounded top image">
+
+					<form action="#" method="PUT" class="p-10 w-400 mw-full">
+						<div class="custom-file">
+							<input type="file" id="file-input">
+							<label for="file-input">Choose a file</label>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- Content wrapper end -->
+
+	</div>
+	<!-- Page wrapper end -->
+
+	<script src="behavior.js"></script>
+
+</body>
+</html>
