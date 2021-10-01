@@ -67,18 +67,20 @@ task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
 	
 		if(fs.existsSync(cookie_path)) {
 			const cookie_string = await fs.readFileSync(cookie_path, 'utf8');
-			//console.log(cookie_string);
 			const cookie_json = JSON.parse(cookie_string);
 			await page.setCookie(...cookie_json);
 		}
 	
 		await page.goto(slack_url);
-		if(page.url === slack_url) {
+
+		try {
+			await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
+			console.log('found');
 			await delay(3000);
 			await page.screenshot({ path: 'public/slack_screen.png' });
-		} else {
-			console.log("Cookie login failed TODO: send notif");
+		} catch {
 			active = false;
+			console.log("Cookie login failed TODO: send notif");
 		}
 
 		await browser.close();
