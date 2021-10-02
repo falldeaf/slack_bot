@@ -62,7 +62,7 @@ console.log('Slack puppet started at http://localhost:' + port);
 task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
 	if(active) {
 		console.log('Opening Slack...');
-		const browser = await puppeteer.launch({ headless: false });
+		const browser = await puppeteer.launch();
 		const page = await browser.newPage();
 	
 		if(fs.existsSync(cookie_path)) {
