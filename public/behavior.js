@@ -1,5 +1,5 @@
-status_url = 'http://localhost:3000/active/status';
-set_status_url = 'http://localhost:3000/active/';
+status_url = 'active/status';
+set_status_url = 'active/';
 image = "slack_screen.png";
 
 currently_active = false;
