@@ -33,6 +33,11 @@ app.get('/active/:switch', function(req, res){
 	}
 });
 
+app.get('/test', async function(req, res){
+	await openSlack();
+	res.send("<img src='slack_screen.png' />");
+});
+
 app.post("/cfile", async (req, res) => {
 
 	if(!req.files) {
@@ -61,31 +66,36 @@ console.log('Slack puppet started at http://localhost:' + port);
 
 task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
 	if(active) {
-		console.log('Opening Slack...');
-		const browser = await puppeteer.launch();
-		const page = await browser.newPage();
-	
-		if(fs.existsSync(cookie_path)) {
-			const cookie_string = await fs.readFileSync(cookie_path, 'utf8');
-			const cookie_json = JSON.parse(cookie_string);
-			await page.setCookie(...cookie_json);
-		}
-	
-		await page.goto(slack_url);
-
-		try {
-			await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
-			console.log('found');
-			await delay(3000);
-			await page.screenshot({ path: 'public/slack_screen.png' });
-		} catch {
-			active = false;
-			console.log("Cookie login failed TODO: send notif");
-		}
-
-		await browser.close();
+		await openSlack();
 	}
 });
+
+async function openSlack() {
+	console.log('Opening Slack...');
+
+	const browser = await puppeteer.launch();
+	const page = await browser.newPage();
+
+	if(fs.existsSync(cookie_path)) {
+		const cookie_string = await fs.readFileSync(cookie_path, 'utf8');
+		const cookie_json = JSON.parse(cookie_string);
+		await page.setCookie(...cookie_json);
+	}
+
+	await page.goto(slack_url);
+
+	try {
+		await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
+		console.log('found selector');
+		await delay(3000);
+		await page.screenshot({ path: 'public/slack_screen.png' });
+	} catch {
+		active = false;
+		console.log("Cookie login failed TODO: send notif");
+	}
+
+	await browser.close();
+}
 
 function delay(time) {
 	return new Promise(function(resolve) { 
