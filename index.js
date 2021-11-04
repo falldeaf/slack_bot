@@ -66,6 +66,7 @@ app.post("/cfile", async (req, res) => {
 });
 
 app.listen(port);
+console.log(process.cwd());
 console.log('Slack puppet started at http://localhost:' + port);
 
 task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
