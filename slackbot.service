@@ -9,7 +9,7 @@ User=nobody
 Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin:/home/falldeaf/git/slack_bot
 Environment=NODE_ENV=production
-WorkingDirectory=/home/falldeaf/git/slack_bot
+RootDirectory=/home/falldeaf/git/slack_bot
 
 [Install]
 WantedBy=multi-user.target
