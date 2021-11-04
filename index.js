@@ -5,6 +5,7 @@ port = 3000;
 
 var task;
 var active = false;
+var cookie_broken = false;
 
 var express = require('express');
 var app = express();
@@ -55,6 +56,7 @@ app.post("/cfile", async (req, res) => {
 				console.log(err);
 				res.send('💀');
 			} else {
+				cookie_broken = false;
 				res.send('👍');
 				console.log("Cookies saved\n");
 			}
@@ -93,6 +95,7 @@ async function openSlack() {
 		await page.screenshot({ path: 'public/slack_screen.png' });
 	} catch {
 		active = false;
+		cookie_broken = true;
 		console.log("Cookie login failed TODO: send notif");
 	}
 

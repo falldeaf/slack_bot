@@ -7,9 +7,9 @@ Restart=always
 User=nobody
 # Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
 Group=nogroup
-Environment=PATH=/usr/bin:/usr/local/bin
+Environment=PATH=/usr/bin:/usr/local/bin:/home/falldeaf/git/slack_bot
 Environment=NODE_ENV=production
-WorkingDirectory=/home/falldeaf/git/slack_bot/
+WorkingDirectory=/home/falldeaf/git/slack_bot
 
 [Install]
 WantedBy=multi-user.target
