@@ -17,7 +17,7 @@ const { exit } = require('process');
 const puppeteer = require('puppeteer');
 
 slack_url = 'https://app.slack.com/client/T0299NE0J/C0299NE0U';
-cookie_path = './cookies.json';
+cookie_path = process.cwd() + '/cookies.json';
 
 app.use( upload({ createParentPath: true }) );
 
@@ -66,7 +66,6 @@ app.post("/cfile", async (req, res) => {
 });
 
 app.listen(port);
-console.log(process.cwd());
 console.log('Slack puppet started at http://localhost:' + port);
 
 task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
