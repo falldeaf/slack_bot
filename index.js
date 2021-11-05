@@ -17,7 +17,9 @@ const { exit } = require('process');
 const puppeteer = require('puppeteer');
 
 slack_url = 'https://app.slack.com/client/T0299NE0J/C0299NE0U';
+
 cookie_path = process.cwd() + '/cookies.json';
+screenshot_path = process.cwd() + '/public/slack_screen.png';
 
 app.use( upload({ createParentPath: true }) );
 
@@ -92,11 +94,12 @@ async function openSlack() {
 		await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
 		console.log('found selector');
 		await delay(3000);
-		await page.screenshot({ path: process.cwd() + '/public/slack_screen.png' });
-	} catch {
+		await page.screenshot({ path: screenshot_path });
+	} catch(e) {
 		active = false;
 		cookie_broken = true;
 		console.log("Cookie login failed TODO: send notif");
+		console.log(e);
 	}
 
 	await browser.close();
