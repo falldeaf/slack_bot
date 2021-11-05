@@ -92,7 +92,7 @@ async function openSlack() {
 		await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
 		console.log('found selector');
 		await delay(3000);
-		await page.screenshot({ path: 'public/slack_screen.png' });
+		await page.screenshot({ path: process.cwd() + '/public/slack_screen.png' });
 	} catch {
 		active = false;
 		cookie_broken = true;
