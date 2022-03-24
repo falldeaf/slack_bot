@@ -5,6 +5,7 @@ port = 3000;
 
 var task;
 var active = false;
+var cron_string = "";
 var cookie_broken = false;
 
 var express = require('express');
@@ -18,6 +19,7 @@ const puppeteer = require('puppeteer');
 
 slack_url = 'https://app.slack.com/client/T0299NE0J/C0299NE0U';
 
+cron_path = process.cwd() + '/cron_string.txt'
 cookie_path = process.cwd() + '/cookies.json';
 screenshot_path = process.cwd() + '/public/slack_screen.png';
 
@@ -27,6 +29,26 @@ app.use(express.static('public'));
 
 app.get('/active/status', function(req, res){
 	res.send(active);
+});
+
+app.get('/getcron/', function(req, res) {
+	res.send(cron_string);
+});
+
+app.get('/setcron/:cron', function(req, res){
+	if(cron.validate(req.params.cron)) {
+		cron_string = req.params.cron;
+		fs.writeFileSync(cron_path, cron_string);
+		if(task.destroy) task.destroy();
+		task = cron.schedule(cron_string, async () => {
+			if(active) {
+				await openSlack();
+			}
+		});
+		res.send('👍');
+	} else {
+		res.send('💀');
+	}
 });
 
 app.get('/active/:switch', function(req, res){
@@ -70,11 +92,21 @@ app.post("/cfile", async (req, res) => {
 app.listen(port);
 console.log('Slack puppet started at http://localhost:' + port);
 
-task = cron.schedule('0,20,40 9-20 * * 1-5', async () => {
-	if(active) {
-		await openSlack();
-	}
-});
+//current cron: 0,20,40 9-20 * * 1-5
+try {
+	cron_string = fs.readFileSync(cron_path, 'utf8');
+} catch(e) {
+	console.log("No cron file found: " + e);
+}
+
+if(cron.validate(cron_string)) {
+	console.log("Cron file found, running: " + cron_string);
+	task = cron.schedule(cron_string, async () => {
+		if(active) {
+			await openSlack();
+		}
+	});
+}
 
 async function openSlack() {
 	console.log('Opening Slack...');
@@ -83,7 +115,7 @@ async function openSlack() {
 	const page = await browser.newPage();
 
 	if(fs.existsSync(cookie_path)) {
-		const cookie_string = await fs.readFileSync(cookie_path, 'utf8');
+		const cookie_string = fs.readFileSync(cookie_path, 'utf8');
 		const cookie_json = JSON.parse(cookie_string);
 		await page.setCookie(...cookie_json);
 	}
@@ -93,10 +125,12 @@ async function openSlack() {
 	try {
 		await page.waitForSelector('.p-ia__sidebar_header__team_name_text');
 		console.log('found selector');
-		await delay(3000);
+		await delay(5000);
 		await page.screenshot({ path: screenshot_path });
 	} catch(e) {
-		active = false;
+		//Don't deactivate, send notification instead
+
+		//active = false;
 		cookie_broken = true;
 		console.log("Cookie login failed TODO: send notif");
 		console.log(e);
