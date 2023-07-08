@@ -6,6 +6,7 @@ image = "slack_screen.png";
 
 currently_active = false;
 
+/*
 document.getElementById("cron_set").addEventListener("click", async (e) => {
 	const response = await fetch(set_cron_url + document.getElementById("cron_input").value);
 	const cron_set = await response.text();
@@ -16,6 +17,7 @@ document.getElementById("cron_set").addEventListener("click", async (e) => {
 		sendAlert("Cron Success", "The new Cron set successfully", false);
 	}
 });
+*/
 
 document.getElementById("active-button").addEventListener("click", async (e) => {
 	const response = await fetch(set_status_url + !currently_active);

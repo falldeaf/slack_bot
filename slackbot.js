@@ -82,7 +82,9 @@ axios.post('https://ntfy.sh/fall_problems', 'slackbot started 😀')
 
 //0,20,40 9-20 * * 1-5
 
-task = cron.schedule('*/5 8-17 * * 1-5', async () => {
+//Current: */5 8-17 * * 1-5
+
+task = cron.schedule('*/10 * * * *', async () => {
 	if(active) {
 		await openSlack();
 	}
@@ -123,13 +125,13 @@ async function openSlack() {
 		//Get proof
 		await page.screenshot({ path: screenshot_path });
 		log(new Date().toLocaleString() + " - Slack check-in");
-		axios.post('https://ntfy.sh/fall_problems', '❌ Slack check-in failed ❌')
 	} catch(e) {
 		//active = false;
 		// = true;
 		console.log("Cookie login failed TODO: send notif");
 		console.log(e);
 		log(new Date().toLocaleString() + " - Slack login failed: " + e);
+		axios.post('https://ntfy.sh/fall_problems', '❌ Slack check-in failed ❌')
 	}
 
 	await browser.close();
