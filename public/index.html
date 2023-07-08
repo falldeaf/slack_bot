@@ -10,6 +10,24 @@
 	<link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+	<style>
+		.console-log {
+			background-color: #000;
+			color: #0f0; /* bright green, like in a real console */
+			font-family: "Courier New", monospace;
+			max-height: 300px; /* adjust as needed */
+			overflow-y: auto; /* add scrollbar if necessary */
+			margin-top: 10px; /* spacing */
+			padding: 10px;
+			white-space: pre-wrap; /* keep from horizontal scrolling */
+			line-height: 1.5em;
+		}
+
+		/* Striping effect */
+		.console-log pre:nth-child(even) {
+			background-color: #111; /* slightly different from console background for contrast */
+		}
+	</style>
 </head>
 
 <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
@@ -48,7 +66,11 @@
 						</div>
 					</form>
 
-					<img src="slack_screen.png" class="p-10 img-fluid rounded-top" alt="rounded top image">
+					<img id="slack-screen" src="" class="p-10 img-fluid rounded-top" alt="rounded top image">
+
+					<div class="console-log p-10 w-400 mw-full">
+						<pre id="log-content"></pre>
+					</div>
 
 					<form action="#" method="PUT" class="p-10 w-400 mw-full">
 						<div class="custom-file">
@@ -56,6 +78,7 @@
 							<label for="file-input">Choose a file</label>
 						</div>
 					</form>
+
 				</div>
 			</div>
 		</div>
