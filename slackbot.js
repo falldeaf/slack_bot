@@ -82,9 +82,10 @@ axios.post('https://ntfy.sh/fall_problems', 'slackbot started 😀')
 
 //0,20,40 9-20 * * 1-5
 
+//Every ten minute test: */10 * * * *
 //Current: */5 8-17 * * 1-5
 
-task = cron.schedule('*/10 * * * *', async () => {
+task = cron.schedule('*/5 8-17 * * 1-5', async () => {
 	if(active) {
 		await openSlack();
 	}
