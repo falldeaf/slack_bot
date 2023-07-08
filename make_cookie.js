@@ -15,8 +15,12 @@ slack_url = 'https://app.slack.com/client/T0299NE0J/C0299NE0U';
 
 	console.log("Writing cookies and exiting...");
 	const cookies = await page.cookies();
-	//console.log(cookies);
-	await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2));
+	console.log(cookies);
+	fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2), (err) => {
+		if (err) {
+			console.log(err);
+		}
+	});
 
 	await browser.close();
 })();

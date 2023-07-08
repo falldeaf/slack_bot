@@ -60,9 +60,16 @@
 				<div class="card w-400 mw-full m-0 position-relative">
 
 					<form action="..." method="..." class="p-10 w-400 mw-full"></form>
-						<div id="active-button" class=".p-10 custom-switch">
+						<div id="active-button" class="custom-switch">
 							<input type="checkbox" id="active-switch" value="">
 							<label for="switch-1">Slack Puppet Active</label>
+						</div>
+
+						<div class="input_item input-group">
+							<input id="cron_input" type="cron_strong" class="form-control" placeholder="cron string">
+							<div class="input-group-append">
+								<button id="cron_set" class="btn btn-primary" type="button">Set Cron</button>
+							</div>
 						</div>
 					</form>
 
@@ -87,6 +94,7 @@
 	</div>
 	<!-- Page wrapper end -->
 
+	<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
 	<script src="behavior.js"></script>
 
 </body>
